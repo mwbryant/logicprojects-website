@@ -3,20 +3,14 @@ layout: default
 ---
 <section class="masthead">
   <h1>{{ site.title }}</h1>
+  {%- if site.tagline %}
   <p class="masthead-sub">{{ site.tagline }}</p>
-  <dl class="readout">
-    {%- for f in site.facts %}
-    <div>
-      <dt>{{ f.label }}</dt>
-      <dd>{{ f.value }}</dd>
-    </div>
-    {%- endfor %}
-  </dl>
+  {%- endif %}
 </section>
 
 <section class="sheet" aria-labelledby="archives">
   <h2 id="archives">Archives</h2>
-  <p class="sheet-note">Source, footage, and builds. Hosted where they belong.</p>
+  <p class="sheet-note">Where the actual stuff lives.</p>
   <ul class="rows">
     {%- for l in site.links %}
     <li class="row">
@@ -32,7 +26,7 @@ layout: default
 
 <section class="sheet" aria-labelledby="logs">
   <h2 id="logs">Logs</h2>
-  <p class="sheet-note">Build notes, teardowns, and tutorials.</p>
+  <p class="sheet-note">Devlogs in writing.</p>
   <ul class="rows">
     {%- for post in site.posts limit: 6 %}
     <li class="row">
@@ -45,7 +39,6 @@ layout: default
     {%- else %}
     <li class="row row-empty">
       <span class="row-name">No entries yet.</span>
-      <span class="row-desc">Drop a markdown file in <code>_posts/</code> and it appears here.</span>
     </li>
     {%- endfor %}
   </ul>

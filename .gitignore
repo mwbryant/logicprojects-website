@@ -5,3 +5,4 @@ preview/
 .sass-cache/
 vendor/
 Gemfile.lock
+.bundle/

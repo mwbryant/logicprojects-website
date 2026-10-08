@@ -108,21 +108,13 @@ Everything you'll change routinely lives at the top of `_config.yml`:
 
 ```yaml
 title: Logic Projects
-designation: LP-00          # the drawing number in the footer title block
-tagline: >-
-  Field notes from the machine...
-
-facts:                      # the readout under the masthead, and the title block
-  - label: Subject
-    value: FPGA · embedded · sensing
-  - label: Status
-    value: Active
+tagline:                    # optional line under the masthead; blank hides it
 
 links:                      # builds the Archives table and the header nav
   - name: GitHub
-    url: https://github.com/YOUR-USERNAME
+    url: https://github.com/mwbryant
     host: github.com        # the mono data field in the left column
-    blurb: HDL, firmware, and the tooling around it.
+    blurb: Source for the shitposts.
 ```
 
 All three links are set: `mwbryant`, `@logicprojects` on YouTube, and
@@ -135,8 +127,8 @@ Drop a file in `_posts/` named `YYYY-MM-DD-slug.md`:
 ```markdown
 ---
 layout: post
-title: "Getting a PLL to lock on the iCE40"
-summary: "One line, shown in the table and the feed."
+title: "Title of the entry"
+summary: "One line, shown in the logs table."
 tag: Tutorial
 ---
 
@@ -146,9 +138,9 @@ Markdown from here.
 Push it. It appears on the home page and at `/logs/slug/`. Both `summary` and
 `tag` are optional.
 
-Markdown gets the full treatment: headings rule off, code blocks take an oxide
+Markdown gets the full treatment: headings rule off, code blocks take a blue
 left edge, tables set in mono with tabular figures, blockquotes inset, bullets
-marked with oxide squares.
+marked with blue squares.
 
 ### Images
 
@@ -158,31 +150,26 @@ marked with oxide squares.
 
 ## The design
 
-Dark only — no light variant, deliberately. The layout is an engineering
-drawing sheet: a bordered plate with crop marks at the corners, content set as
-datasheet tables, and a title block at the foot.
+Dark only — no light variant, deliberately. Blue-tinged sci-fi, with content
+set as datasheet tables.
 
 Every color is a variable at the top of `assets/css/style.css`:
 
 ```css
---ground:  #14100e;   /* deep oxide-black, warm not blue */
---plate:   #1a1512;
---inset:   #221b17;
---bone:    #dcd3c4;   /* text — aged paper, never pure white */
---oxide:   #b33a1e;   /* rust red: marks, rules, emphasis */
---brass:   #c2913c;   /* brass: data values, links */
+--ground:  #0a0e15;   /* deep navy-black */
+--inset:   #111926;
+--ink:     #d3e1ef;   /* text — cool, never pure white */
+--mark:    #3d8bff;   /* electric blue: marks, rules, emphasis */
+--value:   #5fd8ff;   /* cyan: data values, links */
 ```
 
-Change `--oxide` and `--brass` and the whole site follows. Push `--ground`
-toward `#0d0d10` for something colder and more clinical; toward `#1a1210` for
-more rust.
+Change `--mark` and `--value` and the whole site follows.
 
 Type is Archivo Narrow (display, caps), Archivo (prose), Space Mono (data
 fields), all from Google Fonts.
 
 To dial the theme back, the thematic words are all in content you control:
-"Archives" and "Logs" in `index.html` and `logs.html`, and the title-block
-labels in `_layouts/default.html`.
+"Archives" and "Logs" in `index.html` and `logs.html`.
 
 ---
 
@@ -190,26 +177,32 @@ labels in `_layouts/default.html`.
 
 Not required — GitHub builds the site. But if you want it:
 
+macOS's system Ruby is too old for Jekyll 4, so use Homebrew's:
+
 ```bash
-gem install jekyll
-jekyll serve
+brew install ruby
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+bundle config set --local path vendor/bundle
+bundle install
+bundle exec jekyll serve --livereload
 ```
 
-`http://localhost:4000`.
+`http://localhost:4000`. The page reloads itself on every save, except
+`_config.yml`: Jekyll only reads that at startup, so restart the server after
+editing it.
 
 ---
 
 ## Files
 
 ```
-_config.yml           identity, facts, links
+_config.yml           identity, links
 index.html            masthead, Archives table, Logs table
 logs.html             the full log index at /logs/
-feed.xml              Atom feed, no plugins
-_layouts/default.html page frame, header strip, title block
+_layouts/default.html page frame, header strip
 _layouts/post.html    log entry
 _layouts/page.html    plain page
 _posts/               your markdown
-assets/css/style.css  the whole design, ~370 lines
+assets/css/style.css  the whole design, ~327 lines
 CNAME                 logicprojects.net
 ```
