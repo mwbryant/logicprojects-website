@@ -1,0 +1,23 @@
+---
+layout: default
+---
+<article class="doc">
+  <header class="doc-head">
+    <p class="doc-meta">
+      <span class="num">{{ page.date | date: "%Y.%m.%d" }}</span>
+      {%- if page.tag %}<span class="tag">{{ page.tag }}</span>{% endif %}
+    </p>
+    <h1>{{ page.title }}</h1>
+    {%- if page.summary %}
+    <p class="doc-lede">{{ page.summary }}</p>
+    {%- endif %}
+  </header>
+
+  <div class="prose">
+    {{ content }}
+  </div>
+</article>
+
+<nav class="doc-foot">
+  <a href="{{ '/logs/' | relative_url }}">Back to logs</a>
+</nav>

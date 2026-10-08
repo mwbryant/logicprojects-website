@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% if page.title and page.url != "/" %}{{ page.title }} — {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+<meta name="description" content="{{ page.description | default: site.description | strip_newlines | strip }}">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#14100e">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Archivo+Narrow:wght@600;700&family=Space+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+<link rel="alternate" type="application/atom+xml" title="{{ site.title }}" href="{{ '/feed.xml' | relative_url }}">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="strip">
+  <a class="strip-id" href="{{ '/' | relative_url }}">
+    <span class="mark" aria-hidden="true"></span>{{ site.title }}
+  </a>
+  <nav class="strip-nav">
+    <a href="{{ '/logs/' | relative_url }}"{% if page.url contains '/logs' %} aria-current="page"{% endif %}>Logs</a>
+    {%- for l in site.links %}
+    <a href="{{ l.url }}">{{ l.name }}</a>
+    {%- endfor %}
+  </nav>
+</header>
+
+<div class="plate">
+  <main id="main">
+  {{ content }}
+  </main>
+
+  <footer class="block">
+    <div class="block-grid">
+      <div class="block-cell block-title">
+        <span class="k">Sheet</span>
+        <span class="v">{{ site.title }}</span>
+      </div>
+      {%- for f in site.facts %}
+      <div class="block-cell">
+        <span class="k">{{ f.label }}</span>
+        <span class="v">{{ f.value }}</span>
+      </div>
+      {%- endfor %}
+      <div class="block-cell">
+        <span class="k">Drawn by</span>
+        <span class="v">{{ site.author }}</span>
+      </div>
+      <div class="block-cell">
+        <span class="k">Dwg</span>
+        <span class="v num">{{ site.designation }}</span>
+      </div>
+      <div class="block-cell">
+        <span class="k">Rev</span>
+        <span class="v num">{{ 'now' | date: "%Y.%m" }}</span>
+      </div>
+      <div class="block-cell block-wide">
+        <span class="k">Feed</span>
+        <span class="v"><a href="{{ '/feed.xml' | relative_url }}">Atom</a></span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+</body>
+</html>

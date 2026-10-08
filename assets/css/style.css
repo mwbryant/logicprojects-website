@@ -1,0 +1,404 @@
+/* ===========================================================================
+   logicprojects.net
+   Layout concept: an engineering drawing sheet. A bordered plate with crop
+   marks, content set as datasheet tables, and a title block at the foot.
+   Committed dark: oxide ground, bone ink, brass data. No light variant.
+   =========================================================================== */
+
+:root {
+  color-scheme: dark;
+
+  /* ground */
+  --ground:  #14100e;   /* deep oxide-black, warm not blue */
+  --plate:   #1a1512;   /* the sheet surface */
+  --inset:   #221b17;   /* recessed fields */
+  --rule:    #3a2e27;   /* hairlines */
+  --rule-lo: #281f1b;   /* fainter hairlines */
+
+  /* ink */
+  --bone:    #dcd3c4;   /* primary text — aged paper, never pure white */
+  --dim:     #948577;   /* secondary text */
+  --faint:   #6b5e53;   /* tertiary, labels */
+
+  /* chroma — two colors, both load-bearing */
+  --oxide:   #b33a1e;   /* rust red: structure, marks, emphasis */
+  --oxide-lo:#6e2413;
+  --brass:   #c2913c;   /* brass: data values, links */
+
+  /* type */
+  --display: "Archivo Narrow", "Archivo Narrow Fallback", Impact, sans-serif;
+  --text:    "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --data:    "Space Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* measure */
+  --sheet:   58rem;
+  --measure: 36rem;
+}
+
+/* --- reset ---------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--bone);
+  font-family: var(--text);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  /* engineering-paper grid, barely there */
+  background-image:
+    linear-gradient(var(--rule-lo) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rule-lo) 1px, transparent 1px);
+  background-size: 48px 48px, 48px 48px;
+  background-position: -1px -1px;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+a { color: inherit; }
+
+:focus-visible {
+  outline: 2px solid var(--brass);
+  outline-offset: 2px;
+}
+
+.skip {
+  position: absolute; left: -9999px;
+  background: var(--oxide); color: var(--bone);
+  padding: .6rem 1rem; z-index: 10; text-decoration: none;
+  font-family: var(--data); font-size: .8rem;
+}
+.skip:focus { left: 1rem; top: 1rem; }
+
+/* --- header strip --------------------------------------------------------- */
+.strip {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: .5rem 1.5rem;
+  max-width: var(--sheet);
+  margin: 0 auto;
+  padding: .85rem 1.25rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.strip-id {
+  display: inline-flex; align-items: center; gap: .55rem;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--bone);
+}
+.strip-id .mark {
+  width: .5rem; height: .5rem;
+  background: var(--oxide);
+  flex: none;
+  animation: pulse 4s ease-in-out infinite;
+}
+@keyframes pulse { 0%, 100% { opacity: 1 } 50% { opacity: .35 } }
+@media (prefers-reduced-motion: reduce) {
+  .strip-id .mark { animation: none; }
+}
+
+.strip-nav { display: flex; flex-wrap: wrap; gap: 1.15rem; }
+.strip-nav a {
+  font-family: var(--data);
+  font-size: .76rem;
+  letter-spacing: .04em;
+  color: var(--dim);
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+}
+.strip-nav a:hover { color: var(--bone); border-bottom-color: var(--oxide); }
+.strip-nav a[aria-current="page"] { color: var(--brass); border-bottom-color: var(--brass); }
+
+/* --- the plate ------------------------------------------------------------ */
+.plate {
+  position: relative;
+  max-width: var(--sheet);
+  margin: 2.25rem auto 3.5rem;
+  padding: 0 1.25rem;
+}
+
+/* crop marks at the sheet corners */
+.plate::before, .plate::after {
+  content: ""; position: absolute; width: 14px; height: 14px;
+  pointer-events: none;
+}
+.plate::before { top: -10px; left: 1.25rem;
+  border-top: 1px solid var(--oxide); border-left: 1px solid var(--oxide); }
+.plate::after  { top: -10px; right: 1.25rem;
+  border-top: 1px solid var(--oxide); border-right: 1px solid var(--oxide); }
+
+/* --- masthead ------------------------------------------------------------- */
+.masthead { padding: 2.5rem 0 2.75rem; }
+
+.masthead h1 {
+  font-family: var(--display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.005em;
+  line-height: .92;
+  font-size: clamp(3rem, 13vw, 7rem);
+  margin: 0;
+  color: var(--bone);
+  text-wrap: balance;
+}
+
+.masthead-sub {
+  font-size: 1.02rem;
+  color: var(--dim);
+  max-width: var(--measure);
+  margin: 1.25rem 0 0;
+  text-wrap: pretty;
+}
+
+.masthead-sub-page h1 { font-size: clamp(2.2rem, 9vw, 4rem); }
+
+/* instrument readout under the masthead */
+.readout {
+  display: flex; flex-wrap: wrap; gap: 0 2.5rem;
+  margin: 2rem 0 0; padding: .85rem 0 0;
+  border-top: 1px solid var(--rule);
+}
+.readout div { display: flex; align-items: baseline; gap: .6rem; }
+.readout dt {
+  font-family: var(--data); font-size: .7rem; letter-spacing: .08em;
+  color: var(--faint); text-transform: uppercase;
+}
+.readout dd {
+  margin: 0; font-family: var(--data); font-size: .78rem; color: var(--brass);
+}
+
+/* --- sheet sections ------------------------------------------------------- */
+.sheet { padding: 2.25rem 0 0; }
+
+.sheet > h2 {
+  font-family: var(--display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  font-size: 1.5rem;
+  margin: 0;
+  color: var(--bone);
+  display: flex; align-items: center; gap: .9rem;
+}
+.sheet > h2::after {
+  content: ""; flex: 1 1 auto; height: 1px; background: var(--rule);
+}
+
+.sheet-note {
+  color: var(--faint);
+  font-size: .9rem;
+  margin: .45rem 0 1.35rem;
+  max-width: var(--measure);
+}
+
+.sheet-more { margin: 1.25rem 0 0; font-family: var(--data); font-size: .8rem; }
+.sheet-more a { color: var(--brass); }
+
+/* --- datasheet rows ------------------------------------------------------- */
+.rows { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule); }
+.row { border-bottom: 1px solid var(--rule-lo); }
+.row:last-child { border-bottom: 1px solid var(--rule); }
+
+.row > a,
+.row-empty {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: .2rem .25rem;
+  padding: .95rem .25rem;
+  text-decoration: none;
+  color: inherit;
+}
+.row > a { transition: background-color .12s linear; }
+.row > a:hover { background: var(--inset); }
+.row > a:hover .row-name { color: var(--brass); }
+
+.row-name {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.12rem;
+  letter-spacing: .01em;
+  color: var(--bone);
+  min-width: 0;
+}
+.row-desc { color: var(--dim); font-size: .9rem; min-width: 0; }
+.row-data {
+  font-family: var(--data); font-size: .74rem; color: var(--faint);
+  letter-spacing: .02em; min-width: 0;
+}
+.row-empty .row-desc code {
+  font-family: var(--data); font-size: .85em; color: var(--brass);
+}
+
+/* one column rhythm for every table: data field, then name over description */
+@media (min-width: 46rem) {
+  .row > a, .row-empty {
+    grid-template-columns: 9rem minmax(0, 1fr);
+    align-items: baseline;
+    gap: .2rem 1.75rem;
+  }
+  .row-data { grid-column: 1; grid-row: 1; }
+  .row-name { grid-column: 2; grid-row: 1; }
+  .row-desc { grid-column: 2; grid-row: 2; }
+}
+
+/* --- document (post) ------------------------------------------------------ */
+.doc { padding: 2.5rem 0 0; }
+
+.doc-head { border-bottom: 1px solid var(--rule); padding-bottom: 1.6rem; }
+
+.doc-meta {
+  display: flex; align-items: center; gap: .9rem; flex-wrap: wrap;
+  margin: 0 0 1rem;
+  font-family: var(--data); font-size: .74rem; color: var(--faint);
+  letter-spacing: .04em;
+}
+.doc-meta .tag {
+  color: var(--oxide);
+  border: 1px solid var(--oxide-lo);
+  padding: .1rem .5rem;
+}
+
+.doc-head h1 {
+  font-family: var(--display);
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1;
+  letter-spacing: 0;
+  font-size: clamp(2.1rem, 7vw, 3.6rem);
+  margin: 0;
+  max-width: 20ch;
+  text-wrap: balance;
+}
+
+.doc-lede {
+  font-size: 1.05rem; color: var(--dim);
+  max-width: var(--measure); margin: 1.1rem 0 0;
+  text-wrap: pretty;
+}
+
+/* --- prose ---------------------------------------------------------------- */
+.prose { max-width: var(--measure); padding: 2rem 0 0; }
+.prose > * { margin-inline: 0; }
+
+.prose p, .prose li { color: var(--bone); }
+.prose p { margin: 0 0 1.15rem; }
+
+.prose h2, .prose h3 {
+  font-family: var(--display); font-weight: 700;
+  text-transform: uppercase; letter-spacing: .02em; color: var(--bone);
+}
+.prose h2 { font-size: 1.3rem; margin: 2.6rem 0 .8rem;
+  padding-top: .9rem; border-top: 1px solid var(--rule-lo); }
+.prose h3 { font-size: 1.05rem; margin: 2rem 0 .5rem; }
+
+.prose a { color: var(--brass); text-underline-offset: 3px;
+  text-decoration-color: var(--oxide-lo); }
+.prose a:hover { text-decoration-color: var(--brass); }
+
+.prose ul, .prose ol { padding-left: 1.2rem; margin: 0 0 1.15rem; }
+.prose li { margin-bottom: .4rem; }
+.prose ul { list-style: none; padding-left: 1.1rem; }
+.prose ul > li { position: relative; }
+.prose ul > li::before {
+  content: ""; position: absolute; left: -1.1rem; top: .65em;
+  width: 5px; height: 5px; background: var(--oxide);
+}
+
+.prose blockquote {
+  margin: 1.8rem 0; padding: .9rem 1.1rem;
+  background: var(--inset);
+  border-left: 2px solid var(--oxide);
+  color: var(--dim);
+}
+.prose blockquote p:last-child { margin-bottom: 0; }
+
+.prose code {
+  font-family: var(--data); font-size: .85em;
+  background: var(--inset); color: var(--brass);
+  padding: .1em .35em;
+}
+
+.prose pre {
+  background: var(--inset);
+  border: 1px solid var(--rule);
+  border-left: 2px solid var(--oxide);
+  padding: 1rem 1.1rem;
+  overflow-x: auto;
+  font-size: .82rem; line-height: 1.6;
+  margin: 1.6rem 0;
+}
+.prose pre code { background: none; padding: 0; color: var(--bone); font-size: inherit; }
+
+.prose table {
+  width: 100%; border-collapse: collapse; margin: 1.6rem 0;
+  font-family: var(--data); font-size: .8rem;
+  font-variant-numeric: tabular-nums;
+}
+.prose th {
+  text-align: left; color: var(--faint); font-weight: 400;
+  text-transform: uppercase; letter-spacing: .06em; font-size: .7rem;
+  border-bottom: 1px solid var(--rule); padding: .45rem .6rem .45rem 0;
+}
+.prose td {
+  padding: .45rem .6rem .45rem 0;
+  border-bottom: 1px solid var(--rule-lo); color: var(--bone);
+}
+
+.prose img { margin: 1.8rem 0; border: 1px solid var(--rule); }
+.prose hr { border: 0; border-top: 1px solid var(--rule); margin: 2.5rem 0; }
+
+.doc-foot {
+  padding: 2.5rem 0 0;
+  font-family: var(--data); font-size: .78rem;
+}
+.doc-foot a { color: var(--dim); text-decoration: none; }
+.doc-foot a:hover { color: var(--brass); }
+
+/* --- title block ---------------------------------------------------------- */
+.block {
+  margin-top: 4rem;
+  border: 1px solid var(--rule);
+}
+
+.block-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+@media (min-width: 40rem) {
+  .block-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+.block-cell {
+  display: flex; flex-direction: column; gap: .3rem;
+  padding: .75rem .9rem;
+  border-right: 1px solid var(--rule-lo);
+  border-bottom: 1px solid var(--rule-lo);
+  min-width: 0;
+}
+.block-cell:last-child { border-right: 0; }
+@media (min-width: 40rem) {
+  .block-cell:nth-child(4n) { border-right: 0; }
+}
+.block-cell .k {
+  font-family: var(--data); font-size: .62rem; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--faint);
+}
+.block-cell .v {
+  font-family: var(--text); font-size: .85rem; color: var(--bone);
+  overflow-wrap: anywhere;
+}
+.block-cell .v.num { font-family: var(--data); font-size: .8rem; color: var(--brass); }
+.block-cell .v a { color: var(--brass); text-decoration: none; }
+.block-cell .v a:hover { text-decoration: underline; }
+
+.block-title .v {
+  font-family: var(--display); font-weight: 700; text-transform: uppercase;
+  letter-spacing: .04em; font-size: .95rem;
+}

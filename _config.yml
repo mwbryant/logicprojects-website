@@ -1,0 +1,50 @@
+# ---------------------------------------------------------------------------
+# Site identity. Edit these.
+# ---------------------------------------------------------------------------
+title: Logic Projects
+designation: LP-00                 # shown in the title block, like a drawing no.
+tagline: >-
+  Field notes from the machine. FPGA fabric, embedded firmware, and the
+  instruments built to listen to things that do not want to be heard.
+description: >-
+  Build logs, tutorials, and source for FPGA, embedded, and sensing work.
+url: "https://logicprojects.net"
+baseurl: ""
+
+author: Matthew
+
+# Facts shown in the header strip and the footer title block.
+# Keep them true — they read as instrument readouts, not decoration.
+facts:
+  - label: Subject
+    value: FPGA · embedded · sensing
+  - label: Status
+    value: Active
+
+# ---------------------------------------------------------------------------
+# External destinations. These build the Archives table and the footer.
+# Delete any you don't want. Add as many as you like.
+# ---------------------------------------------------------------------------
+links:
+  - name: GitHub
+    url: https://github.com/mwbryant
+    host: github.com
+    blurb: HDL, firmware, and the tooling around it.
+  - name: YouTube
+    url: https://www.youtube.com/@logicprojects
+    host: youtube.com
+    blurb: Build footage and walkthroughs.
+  - name: itch.io
+    url: https://logicprojects.itch.io
+    host: itch.io
+    blurb: Games and smaller interactive work.
+
+permalink: /logs/:title/
+markdown: kramdown
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - preview
+  - vendor

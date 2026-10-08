@@ -1,0 +1,29 @@
+---
+layout: default
+title: Logs
+permalink: /logs/
+description: Build notes, teardowns, and tutorials.
+---
+<section class="masthead masthead-sub-page">
+  <h1>Logs</h1>
+  <p class="masthead-sub">Build notes, teardowns, and tutorials.</p>
+</section>
+
+<section class="sheet">
+  <ul class="rows">
+    {%- for post in site.posts %}
+    <li class="row">
+      <a href="{{ post.url | relative_url }}">
+        <span class="row-data num"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y.%m.%d" }}</time></span>
+        <span class="row-name">{{ post.title }}</span>
+        {%- if post.summary %}<span class="row-desc">{{ post.summary }}</span>{% endif %}
+      </a>
+    </li>
+    {%- else %}
+    <li class="row row-empty">
+      <span class="row-name">No entries yet.</span>
+      <span class="row-desc">Drop a markdown file in <code>_posts/</code> and it appears here.</span>
+    </li>
+    {%- endfor %}
+  </ul>
+</section>
