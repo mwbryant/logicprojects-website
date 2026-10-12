@@ -18,7 +18,7 @@ This project includes everything: the hardware interface layer, the game, the so
 
 ## What is it?
 
-![The finished console in hand, showing the town](/assets/img/logic-orbit/final-game.jpg)
+![The finished console in hand, showing the town](/assets/img/logic-orbit/final-game.jpg){: .photo}
 
 My final product is this handheld game console. I 3D printed and hand-painted the case to look like a fly reel.
 
@@ -71,7 +71,7 @@ I did spend most of my hours iterating on prints for the device and painting it,
 
 ![How the case was made](/assets/img/logic-orbit/case.png)
 
-![Three failed test prints of the case](/assets/img/logic-orbit/failed-prints.jpg)
+![Three failed test prints of the case](/assets/img/logic-orbit/failed-prints.jpg){: .photo}
 
 ## Other novelties/thoughts
 

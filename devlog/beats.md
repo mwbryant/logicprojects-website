@@ -63,3 +63,15 @@ Personal site for Logic Projects: a Jekyll site on GitHub Pages at logicprojects
   metadata. The case and trailer slides were re-rendered with the case in the print's
   brown and white.
 - **Media:** `assets/img/logic-orbit/final-game.jpg`, `assets/img/logic-orbit/failed-prints.jpg`.
+
+## 8. Photos the size of a fish hat (2026-10-12)
+
+- **The ask:** "shrink the real images of the game and failed prints, they can be the size of the hats."
+- **What got in the way:** the photos were 2400 px wide, so they filled the 80% column. The
+  hat shop screenshot sits at its natural 466 px, so the photo above it was more than twice its width.
+- **The fix:** a `.photo` class (kramdown `{: .photo}` right after the image) sets both photos
+  to 466 px, the hat's width; `max-width: 100%` still fits them to a phone screen. The JPEGs are
+  now 932x701 (2x, sharp on retina screens) at quality 85.
+- **The numbers:** photo width at a 1440 px window: 1152 px -> 466 px. Files: 0.74 -> 0.24 MB
+  (finished console), 0.96 -> 0.28 MB (failed prints), 1.69 -> 0.51 MB together.
+- **Media:** `img/08-before-post.png`, `img/08-after-post.png`, `img/08-after-prints.png`.
