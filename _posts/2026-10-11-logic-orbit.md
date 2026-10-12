@@ -12,13 +12,13 @@ I knew Bevy supports no-std, and I'd been meaning to try running Bevy on embedde
 
 Full disclosure: I use a heavily AI-assisted workflow, but I have extensive experience with all the skills and technologies used here, and pre-AI work as evidence (not that I think that should matter). This writing is fully human authored and my own thoughts.
 
-The final project and everything used to build it are present on the GitHub repo for this project: link
+The final project and everything used to build it are present on the GitHub repo for this project: [mwbryant/fishing-minigame](https://github.com/mwbryant/fishing-minigame)
 
 This project includes everything: the hardware interface layer, the game, the source code that programmatically generates the trailer, and the code that generates the CAD files for the casing.
 
 ## What is it?
 
-PICTURE OF THE FINAL GAME
+![The finished console in hand, showing the town](/assets/img/logic-orbit/final-game.jpg)
 
 My final product is this handheld game console. I 3D printed and hand-painted the case to look like a fly reel.
 
@@ -71,7 +71,7 @@ I did spend most of my hours iterating on prints for the device and painting it,
 
 ![How the case was made](/assets/img/logic-orbit/case.png)
 
-PICTURE OF THE FAILED PRINTS
+![Three failed test prints of the case](/assets/img/logic-orbit/failed-prints.jpg)
 
 ## Other novelties/thoughts
 

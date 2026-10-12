@@ -53,3 +53,13 @@ Personal site for Logic Projects: a Jekyll site on GitHub Pages at logicprojects
 - **The numbers:** text and slides are 1152px of 1440 (80%), 1506px of 1882 (80%) and 888px of 1024 (87%, where the 58rem minimum wins). Body text in a post: 17px at 1280, 18px at 1440, 21px at 1882. The header logo lines up with the text again. No sideways scroll from 390 to 2560.
 - **Hook:** Three layouts in one afternoon, and the answer was the simplest one: use the screen.
 - **Media:** `img/06-before-1882.png`, `img/06-after-1882.png`, `img/06-after-1882-slide.png`, `img/06-after-1882-home.png`.
+
+## 7. The first log goes live (2026-10-12)
+
+- **The ask:** publish the logic-orbit post, then fill in its repo link and the two photos.
+- **The fix:** the post links the newly public repo, github.com/mwbryant/fishing-minigame (132
+  commits, nothing over 5 MB). The two phone photos (4080x3072) are 2400 px wide JPEGs at
+  quality 85: 0.74 MB for the finished console, 0.96 MB for the failed prints, with no
+  metadata. The case and trailer slides were re-rendered with the case in the print's
+  brown and white.
+- **Media:** `assets/img/logic-orbit/final-game.jpg`, `assets/img/logic-orbit/failed-prints.jpg`.
