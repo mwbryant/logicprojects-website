@@ -30,20 +30,22 @@
   --data:    "Space Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
   /* measure */
-  --sheet:   58rem;
+  --sheet:   max(58rem, 80vw + 2 * var(--gutter));   /* content is 80% of a wide window */
   --measure: 36rem;
+  --gutter:  1.25rem;
 }
 
 /* --- reset ---------------------------------------------------------------- */
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
+/* 16px up to a 1280px window, growing to 20px at 1920, so big screens get a bigger page. */
+html { -webkit-text-size-adjust: 100%; font-size: clamp(100%, 50% + .625vw, 125%); }
 
 body {
   margin: 0;
   background: var(--ground);
   color: var(--ink);
   font-family: var(--text);
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
@@ -114,7 +116,7 @@ a { color: inherit; }
 .plate {
   max-width: var(--sheet);
   margin: 2.25rem auto 3.5rem;
-  padding: 0 1.25rem;
+  padding: 0 var(--gutter);
 }
 
 /* --- masthead ------------------------------------------------------------- */
@@ -238,7 +240,6 @@ a { color: inherit; }
   letter-spacing: 0;
   font-size: clamp(2.1rem, 7vw, 3.6rem);
   margin: 0;
-  max-width: 20ch;
   text-wrap: balance;
 }
 
@@ -249,7 +250,10 @@ a { color: inherit; }
 }
 
 /* --- prose ---------------------------------------------------------------- */
-.prose { max-width: var(--measure); padding: 2rem 0 0; }
+.prose { padding: 2rem 0 0; overflow-wrap: break-word; }
+@media (min-width: 60rem) {
+  .prose { font-size: 1.0625rem; }
+}
 .prose > * { margin-inline: 0; }
 
 .prose p, .prose li { color: var(--ink); }
@@ -316,7 +320,13 @@ a { color: inherit; }
   border-bottom: 1px solid var(--rule-lo); color: var(--ink);
 }
 
-.prose img { margin: 1.8rem 0; border: 1px solid var(--rule); }
+.prose img { margin: 1.8rem auto; border: 1px solid var(--rule); }
+.prose figure { margin: 1.8rem 0; }
+.prose figure img { margin: 0 auto .6rem; }
+.prose figcaption {
+  font-family: var(--data); font-size: .78rem; letter-spacing: .04em;
+  color: var(--dim); text-align: center;
+}
 .prose hr { border: 0; border-top: 1px solid var(--rule); margin: 2.5rem 0; }
 
 .doc-foot {
